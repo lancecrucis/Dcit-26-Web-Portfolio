@@ -1,3 +1,6 @@
+import { useRef, useState, useCallback } from "react"
+import { motion } from "framer-motion"
+
 const skills = [
   { label: 'Frontend', value: 'React 19, Tailwind CSS, Spline 3D' },
   { label: 'Backend', value: 'Node.js, Express.js, REST APIs' },
@@ -19,6 +22,55 @@ const certifications = [
   { title: 'WarFrames: Where Design Meets Data (41st CS Week, UPLB)', org: 'University of the Philippines Los Baños', date: 'Issued Mar 2025', img: '/certs/warframe uplb cert.jpg' },
 ]
 
+function TiltProfilePic() {
+  const [isHovered, setIsHovered] = useState(false)
+  const [tilt, setTilt] = useState({ x: 0, y: 0 })
+  const [mouse, setMouse] = useState({ x: 0, y: 0 })
+  const ref = useRef(null)
+
+  const handleMove = useCallback((e) => {
+    if (!ref.current) return
+    const rect = ref.current.getBoundingClientRect()
+    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 100
+    const y = ((e.clientY - rect.top) / rect.height - 0.5) * 100
+    setMouse({ x, y })
+    setTilt({ x: -(y / 50) * 12, y: (x / 50) * 12 })
+  }, [])
+
+  return (
+    <motion.div
+      ref={ref}
+      className="relative w-[200px] h-[200px] rounded-full"
+      style={{ perspective: 1000 }}
+      animate={{ scale: isHovered ? 1.05 : 1 }}
+      transition={{ duration: 0.2, ease: "easeOut" }}
+      onMouseMove={handleMove}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => { setIsHovered(false); setTilt({ x: 0, y: 0 }) }}
+    >
+      <motion.div
+        className="absolute inset-0 rounded-full overflow-hidden border-4 border-[#f0f0f0]"
+        animate={{ rotateX: tilt.x, rotateY: tilt.y }}
+        transition={{ duration: 0.2, ease: "easeOut" }}
+      >
+        <img
+          src="/profile_pic.jpg"
+          alt="Lance Christian C. Crucis"
+          className="w-full h-full object-cover"
+        />
+        <motion.div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: `radial-gradient(circle at ${mouse.x / 2 + 50}% ${mouse.y / 2 + 50}%, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 80%)`,
+          }}
+          animate={{ opacity: isHovered ? 1 : 0 }}
+          transition={{ duration: 0.2 }}
+        />
+      </motion.div>
+    </motion.div>
+  )
+}
+
 export default function App() {
   return (
     <div className="max-w-[1100px] mx-auto px-6 py-12">
@@ -33,11 +85,7 @@ export default function App() {
 
       <section className="flex items-center gap-10 mb-14">
         <div className="shrink-0">
-          <img
-            src="/profile_pic.jpg"
-            alt="Lance Christian C. Crucis"
-            className="w-[200px] h-[200px] rounded-full object-cover border-4 border-[#f0f0f0]"
-          />
+          <TiltProfilePic />
         </div>
         <div className="flex-1">
           <h2 className="text-[1.75rem] font-bold text-[#111] mb-3">Hello</h2>
