@@ -231,7 +231,7 @@ export default function App() {
       <hr className="border-none border-t border-[#eee] dark:border-[#333] my-12" />
 
       <footer className="text-center text-[0.9rem] text-[#bbb] dark:text-[#666] py-6">
-        {new Date().getFullYear()} Lance Christian C. Crucis
+        {new Date().getFullYear()} Lance Christian C. Crucis.
       </footer>
     </div>
   )
