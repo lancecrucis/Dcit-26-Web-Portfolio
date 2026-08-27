@@ -9,9 +9,9 @@ const skills = [
 ]
 
 const projects = [
-  { name: 'lancelet Flashcards', url: 'https://lancelet.vercel.app/', img: '/projects/lanceletwebsite.png' },
-  { name: 'Unofficial Lord of the Mysteries', url: 'https://unofficial-lord-of-the-mysteries.vercel.app/', img: '/projects/lotm website.png' },
-  { name: 'Valorant Commputer Vision Skin Classifier', url: 'https://xg-inventory-management-system-frontend.onrender.com', img: '/projects/valorant.png' },
+  { name: 'lancelet Flashcards', url: 'https://lancelet.vercel.app/', img: '/projects/lanceletwebsite.png', video: '/videos/lancelet vid.mp4' },
+  { name: 'Unofficial Lord of the Mysteries', url: 'https://unofficial-lord-of-the-mysteries.vercel.app/', img: '/projects/lotm website.png', video: '/videos/lotm vid.mp4' },
+  { name: 'Valorant Commputer Vision Skin Classifier', url: 'https://xg-inventory-management-system-frontend.onrender.com', img: '/projects/valorant.png', video: '/videos/valorant vid.mp4' },
 ]
 
 const certifications = [
@@ -68,6 +68,49 @@ function TiltProfilePic() {
         />
       </motion.div>
     </motion.div>
+  )
+}
+
+function ProjectCard({ project }) {
+  const [hovered, setHovered] = useState(false)
+
+  return (
+    <a
+      href={project.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="relative block w-full rounded-2xl overflow-hidden h-[280px] group"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      {hovered ? (
+        <img
+          src={project.img}
+          alt={project.name}
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+      ) : (
+        <video
+          src={project.video}
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+      )}
+      <div className="relative z-10 flex flex-col items-start justify-start h-full pt-8 pl-8">
+        <h4 className="text-white text-2xl font-bold max-w-xs leading-tight">
+          {project.name}
+        </h4>
+        <p className="text-white/70 text-sm mt-1.5">
+          The project is Live!
+        </p>
+        <span className="mt-4 inline-block bg-white/20 backdrop-blur-sm text-white text-sm font-medium px-5 py-2 rounded-full border border-white/30 group-hover:bg-white/30 transition-colors">
+          Visit Site &rarr;
+        </span>
+      </div>
+    </a>
   )
 }
 
@@ -128,31 +171,7 @@ export default function App() {
         </h3>
         <div className="flex flex-col gap-5">
           {projects.map((p) => (
-            <a
-              key={p.name}
-              href={p.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="relative block w-full rounded-2xl overflow-hidden h-[280px] group"
-            >
-              <img
-                src={p.img}
-                alt={p.name}
-                className="absolute inset-0 w-full h-full object-cover"
-              />
-              <div className="absolute inset-0  via-black/20 to-transparent" />
-              <div className="relative z-10 flex flex-col items-start justify-start h-full pt-8 pl-8">
-                <h4 className="text-white text-2xl font-bold max-w-xs leading-tight">
-                  {p.name}
-                </h4>
-                <p className="text-white/70 text-sm mt-1.5">
-                  The project is Live!
-                </p>
-                <span className="mt-4 inline-block bg-white/20 backdrop-blur-sm text-white text-sm font-medium px-5 py-2 rounded-full border border-white/30 group-hover:bg-white/30 transition-colors">
-                  Visit Site &rarr;
-                </span>
-              </div>
-            </a>
+            <ProjectCard key={p.name} project={p} />
           ))}
         </div>
       </section>
