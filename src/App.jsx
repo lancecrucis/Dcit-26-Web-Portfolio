@@ -43,7 +43,7 @@ function TiltProfilePic() {
   return (
     <motion.div
       ref={ref}
-      className="relative w-[260px] h-[260px] rounded-full"
+      className="relative w-[260px] h-[260px] max-md:w-[180px] max-md:h-[180px] rounded-full"
       style={{ perspective: 1000 }}
       animate={{ scale: isHovered ? 1.05 : 1 }}
       transition={{ duration: 0.2, ease: "easeOut" }}
@@ -79,8 +79,8 @@ function ProjectCard({ project }) {
 
   const Wrapper = project.dev ? 'div' : 'a'
   const wrapperProps = project.dev
-    ? { className: 'relative block w-full rounded-2xl overflow-hidden h-[320px] group cursor-default' }
-    : { href: project.url, target: '_blank', rel: 'noopener noreferrer', className: 'relative block w-full rounded-2xl overflow-hidden h-[320px] group' }
+    ? { className: 'relative block w-full rounded-2xl overflow-hidden h-[320px] max-md:h-[240px] group cursor-default' }
+    : { href: project.url, target: '_blank', rel: 'noopener noreferrer', className: 'relative block w-full rounded-2xl overflow-hidden h-[320px] max-md:h-[240px] group' }
 
   return (
     <Wrapper
@@ -101,20 +101,20 @@ function ProjectCard({ project }) {
         playsInline
         className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${hovered ? 'opacity-100' : 'opacity-0'}`}
       />
-      <div className="relative z-10 flex flex-col items-start justify-start h-full pt-10 pl-10">
-        <h4 className="text-white text-3xl font-bold max-w-sm leading-tight">
+      <div className="relative z-10 flex flex-col items-start justify-start h-full pt-10 pl-10 max-md:pt-6 max-md:pl-6">
+        <h4 className="text-white text-3xl max-md:text-xl font-bold max-w-sm leading-tight">
           {project.name}
         </h4>
-        <p className="text-white/70 text-base mt-2">
+        <p className="text-white/70 text-base max-md:text-sm mt-2">
           {project.dev ? 'Currently in development' : 'The project is Live!'}
         </p>
         {!project.dev && (
-          <span className="mt-5 inline-block bg-white/20 backdrop-blur-sm text-white text-base font-medium px-6 py-2.5 rounded-full border border-white/30 group-hover:bg-white/30 transition-colors">
+          <span className="mt-5 max-md:mt-3 inline-block bg-white/20 backdrop-blur-sm text-white text-base max-md:text-sm font-medium px-6 max-md:px-4 py-2.5 max-md:py-2 rounded-full border border-white/30 group-hover:bg-white/30 transition-colors">
             Visit Site &rarr;
           </span>
         )}
         {project.dev && (
-          <span className="mt-5 inline-block bg-white/10 backdrop-blur-sm text-white/60 text-base font-medium px-6 py-2.5 rounded-full border border-white/20">
+          <span className="mt-5 max-md:mt-3 inline-block bg-white/10 backdrop-blur-sm text-white/60 text-base max-md:text-sm font-medium px-6 max-md:px-4 py-2.5 max-md:py-2 rounded-full border border-white/20">
             Not Live
           </span>
         )}
@@ -132,13 +132,13 @@ export default function App() {
   }
 
   return (
-    <div className="max-w-[1100px] mx-auto px-6 py-12 min-h-screen">
-      <div className="flex items-center justify-between mb-12">
+    <div className="max-w-[1100px] mx-auto px-6 max-md:px-4 py-12 max-md:py-8 min-h-screen">
+      <div className="flex items-center justify-between mb-12 max-md:mb-8">
         <div>
-          <h1 className="text-4xl font-bold tracking-tight text-[#111] dark:text-white">
+          <h1 className="text-4xl max-md:text-2xl font-bold tracking-tight text-[#111] dark:text-white">
             Lance Christian C. Crucis
           </h1>
-          <p className="text-lg text-[#666] dark:text-[#999] mt-1">
+          <p className="text-lg max-md:text-sm text-[#666] dark:text-[#999] mt-1">
             3rd-Year BS Computer Science &middot; Cavite State University
           </p>
         </div>
@@ -150,13 +150,13 @@ export default function App() {
         </button>
       </div>
 
-      <section className="flex items-center gap-10 mb-14">
+      <section className="flex items-center gap-10 mb-14 max-md:flex-col max-md:gap-6 max-md:mb-10 max-md:text-center">
         <div className="shrink-0">
           <TiltProfilePic />
         </div>
         <div className="flex-1">
-          <h2 className="text-[2.25rem] font-bold text-[#111] dark:text-white mb-3">Hello</h2>
-          <p className="text-[1.15rem] text-[#444] dark:text-[#ccc] mb-2 leading-relaxed">
+          <h2 className="text-[2.25rem] max-md:text-[1.75rem] font-bold text-[#111] dark:text-white mb-3">Hello</h2>
+          <p className="text-[1.15rem] max-md:text-[1rem] text-[#444] dark:text-[#ccc] mb-2 leading-relaxed">
             I'm a 3rd-Year BS Computer Science student at Cavite State University
             — Silang Campus, based in Dasmariñas, Cavite, Philippines. I build
             things with React, Node.js, and modern web technologies.
@@ -177,7 +177,7 @@ export default function App() {
         <h3 className="text-[1.3rem] font-semibold tracking-wide uppercase text-[#999] dark:text-[#666] mb-6">
           Skills
         </h3>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 max-md:grid-cols-1 gap-4">
           {skills.map((s) => (
             <div key={s.label} className="bg-[#fafafa] dark:bg-[#1a1a1a] border border-[#eee] dark:border-[#333] rounded-xl px-6 py-5">
               <div className="text-[0.85rem] font-semibold uppercase tracking-wide text-[#aaa] dark:text-[#666] mb-1.5">
@@ -231,7 +231,7 @@ export default function App() {
       <hr className="border-none border-t border-[#eee] dark:border-[#333] my-12" />
 
       <footer className="text-center text-[0.9rem] text-[#bbb] dark:text-[#666] py-6">
-        &copy; {new Date().getFullYear()} Lance Christian C. Crucis
+        {new Date().getFullYear()} Lance Christian C. Crucis
       </footer>
     </div>
   )
