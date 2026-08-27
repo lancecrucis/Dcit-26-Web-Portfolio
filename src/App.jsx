@@ -11,7 +11,7 @@ const skills = [
 const projects = [
   { name: 'lancelet Flashcards', url: 'https://lancelet.vercel.app/', img: '/projects/lanceletwebsite.png', video: '/videos/lancelet vid.mp4' },
   { name: 'Unofficial Lord of the Mysteries', url: 'https://unofficial-lord-of-the-mysteries.vercel.app/', img: '/projects/lotm website.png', video: '/videos/lotm vid.mp4' },
-  { name: 'Valorant Commputer Vision Skin Classifier', url: 'https://xg-inventory-management-system-frontend.onrender.com', img: '/projects/valorant.png', video: '/videos/valorant vid.mp4' },
+  { name: 'Valorant Commputer Vision Skin Classifier', url: '', img: '/projects/valorant.png', video: '/videos/valorant vid.mp4', dev: true },
 ]
 
 const certifications = [
@@ -49,7 +49,7 @@ function TiltProfilePic() {
       onMouseLeave={() => { setIsHovered(false); setTilt({ x: 0, y: 0 }) }}
     >
       <motion.div
-        className="absolute inset-0 rounded-full overflow-hidden border-4 border-[#f0f0f0]"
+        className="absolute inset-0 rounded-full overflow-hidden border-4 border-[#f0f0f0] dark:border-[#333]"
         animate={{ rotateX: tilt.x, rotateY: tilt.y }}
         transition={{ duration: 0.2, ease: "easeOut" }}
       >
@@ -74,6 +74,57 @@ function TiltProfilePic() {
 function ProjectCard({ project }) {
   const [hovered, setHovered] = useState(false)
 
+  const content = (
+    <>
+      {hovered ? (
+        <video
+          src={project.video}
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+      ) : (
+        <img
+          src={project.img}
+          alt={project.name}
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+      )}
+      <div className="relative z-10 flex flex-col items-start justify-start h-full pt-8 pl-8">
+        <h4 className="text-white text-2xl font-bold max-w-xs leading-tight">
+          {project.name}
+        </h4>
+        <p className="text-white/70 text-sm mt-1.5">
+          {project.dev ? 'Currently in development' : 'The project is Live!'}
+        </p>
+        {!project.dev && (
+          <span className="mt-4 inline-block bg-white/20 backdrop-blur-sm text-white text-sm font-medium px-5 py-2 rounded-full border border-white/30 group-hover:bg-white/30 transition-colors">
+            Visit Site &rarr;
+          </span>
+        )}
+        {project.dev && (
+          <span className="mt-4 inline-block bg-white/10 backdrop-blur-sm text-white/60 text-sm font-medium px-5 py-2 rounded-full border border-white/20">
+            Not Live
+          </span>
+        )}
+      </div>
+    </>
+  )
+
+  if (project.dev) {
+    return (
+      <div
+        className="relative block w-full rounded-2xl overflow-hidden h-[280px] group cursor-default"
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+      >
+        {content}
+      </div>
+    )
+  }
+
   return (
     <a
       href={project.url}
@@ -83,47 +134,36 @@ function ProjectCard({ project }) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      {hovered ? (
-        <img
-          src={project.img}
-          alt={project.name}
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-      ) : (
-        <video
-          src={project.video}
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-      )}
-      <div className="relative z-10 flex flex-col items-start justify-start h-full pt-8 pl-8">
-        <h4 className="text-white text-2xl font-bold max-w-xs leading-tight">
-          {project.name}
-        </h4>
-        <p className="text-white/70 text-sm mt-1.5">
-          The project is Live!
-        </p>
-        <span className="mt-4 inline-block bg-white/20 backdrop-blur-sm text-white text-sm font-medium px-5 py-2 rounded-full border border-white/30 group-hover:bg-white/30 transition-colors">
-          Visit Site &rarr;
-        </span>
-      </div>
+      {content}
     </a>
   )
 }
 
 export default function App() {
+  const [dark, setDark] = useState(false)
+
+  const toggleDark = () => {
+    setDark(!dark)
+    document.documentElement.classList.toggle('dark')
+  }
+
   return (
-    <div className="max-w-[1100px] mx-auto px-6 py-12">
-      <div className="mb-12">
-        <h1 className="text-3xl font-bold tracking-tight text-[#111]">
-          Lance Christian C. Crucis
-        </h1>
-        <p className="text-base text-[#666] mt-1">
-          3rd-Year BS Computer Science &middot; Cavite State University
-        </p>
+    <div className="max-w-[1100px] mx-auto px-6 py-12 min-h-screen">
+      <div className="flex items-center justify-between mb-12">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight text-[#111] dark:text-white">
+            Lance Christian C. Crucis
+          </h1>
+          <p className="text-base text-[#666] dark:text-[#999] mt-1">
+            3rd-Year BS Computer Science &middot; Cavite State University
+          </p>
+        </div>
+        <button
+          onClick={toggleDark}
+          className="px-4 py-2 rounded-full border border-[#ddd] dark:border-[#444] text-sm font-medium text-[#555] dark:text-[#aaa] hover:bg-[#f0f0f0] dark:hover:bg-[#222] transition-colors cursor-pointer"
+        >
+          {dark ? 'Light' : 'Dark'}
+        </button>
       </div>
 
       <section className="flex items-center gap-10 mb-14">
@@ -131,15 +171,15 @@ export default function App() {
           <TiltProfilePic />
         </div>
         <div className="flex-1">
-          <h2 className="text-[1.75rem] font-bold text-[#111] mb-3">Hello</h2>
-          <p className="text-[1.05rem] text-[#444] mb-2 leading-relaxed">
+          <h2 className="text-[1.75rem] font-bold text-[#111] dark:text-white mb-3">Hello</h2>
+          <p className="text-[1.05rem] text-[#444] dark:text-[#ccc] mb-2 leading-relaxed">
             I'm a 3rd-Year BS Computer Science student at Cavite State University
             — Silang Campus, based in Dasmariñas, Cavite, Philippines. I build
             things with React, Node.js, and modern web technologies.
           </p>
-          <p className="text-[#888] text-[0.95rem]">Dasmariñas, Cavite, Philippines</p>
+          <p className="text-[#888] dark:text-[#777] text-[0.95rem]">Dasmariñas, Cavite, Philippines</p>
           <a
-            className="inline-block mt-2.5 text-[#555] no-underline text-base border-b-2 border-[#ddd] hover:text-black hover:border-black transition-[color,border-color]"
+            className="inline-block mt-2.5 text-[#555] dark:text-[#aaa] no-underline text-base border-b-2 border-[#ddd] dark:border-[#555] hover:text-black dark:hover:text-white hover:border-black dark:hover:border-white transition-[color,border-color]"
             href="https://github.com/lancecrucis"
             target="_blank"
             rel="noopener noreferrer"
@@ -150,23 +190,23 @@ export default function App() {
       </section>
 
       <section className="mb-12">
-        <h3 className="text-[1.15rem] font-semibold tracking-wide uppercase text-[#999] mb-6">
+        <h3 className="text-[1.15rem] font-semibold tracking-wide uppercase text-[#999] dark:text-[#666] mb-6">
           Skills
         </h3>
         <div className="grid grid-cols-2 gap-4">
           {skills.map((s) => (
-            <div key={s.label} className="bg-[#fafafa] border border-[#eee] rounded-xl px-5 py-4">
-              <div className="text-[0.75rem] font-semibold uppercase tracking-wide text-[#aaa] mb-1.5">
+            <div key={s.label} className="bg-[#fafafa] dark:bg-[#1a1a1a] border border-[#eee] dark:border-[#333] rounded-xl px-5 py-4">
+              <div className="text-[0.75rem] font-semibold uppercase tracking-wide text-[#aaa] dark:text-[#666] mb-1.5">
                 {s.label}
               </div>
-              <div className="text-[0.9rem] text-[#222]">{s.value}</div>
+              <div className="text-[0.9rem] text-[#222] dark:text-[#ddd]">{s.value}</div>
             </div>
           ))}
         </div>
       </section>
 
       <section className="mb-12">
-        <h3 className="text-[1.15rem] font-semibold tracking-wide uppercase text-[#999] mb-6">
+        <h3 className="text-[1.15rem] font-semibold tracking-wide uppercase text-[#999] dark:text-[#666] mb-6">
           Projects
         </h3>
         <div className="flex flex-col gap-5">
@@ -177,26 +217,26 @@ export default function App() {
       </section>
 
       <section className="mb-12">
-        <h3 className="text-[1.15rem] font-semibold tracking-wide uppercase text-[#999] mb-6">
+        <h3 className="text-[1.15rem] font-semibold tracking-wide uppercase text-[#999] dark:text-[#666] mb-6">
           Certifications
         </h3>
         <div className="grid grid-cols-2 gap-5 max-md:grid-cols-1">
           {certifications.map((c) => (
             <div
               key={c.title}
-              className="flex flex-col border border-[#eee] rounded-xl overflow-hidden hover:shadow-[0_4px_20px_rgba(0,0,0,0.06)] transition-shadow"
+              className="flex flex-col border border-[#eee] dark:border-[#333] rounded-xl overflow-hidden hover:shadow-[0_4px_20px_rgba(0,0,0,0.06)] dark:hover:shadow-[0_4px_20px_rgba(0,0,0,0.3)] transition-shadow"
             >
-              <div className="w-full bg-[#fafafa] flex items-center justify-center p-5">
+              <div className="w-full bg-[#fafafa] dark:bg-[#1a1a1a] flex items-center justify-center p-5">
                 <img
                   src={c.img}
                   alt={c.title}
                   className="w-full h-auto max-h-[300px] object-contain block"
                 />
               </div>
-              <div className="px-4 py-3.5 border-t border-[#eee]">
-                <div className="font-medium text-[0.85rem] text-[#111]">{c.title}</div>
-                <div className="text-[0.78rem] text-[#777] mt-1">
-                  {c.org} &middot; <span className="text-[#aaa]">{c.date}</span>
+              <div className="px-4 py-3.5 border-t border-[#eee] dark:border-[#333]">
+                <div className="font-medium text-[0.85rem] text-[#111] dark:text-white">{c.title}</div>
+                <div className="text-[0.78rem] text-[#777] dark:text-[#888] mt-1">
+                  {c.org} &middot; <span className="text-[#aaa] dark:text-[#666]">{c.date}</span>
                 </div>
               </div>
             </div>
@@ -204,9 +244,9 @@ export default function App() {
         </div>
       </section>
 
-      <hr className="border-none border-t border-[#eee] my-12" />
+      <hr className="border-none border-t border-[#eee] dark:border-[#333] my-12" />
 
-      <footer className="text-center text-[0.8rem] text-[#bbb] py-6">
+      <footer className="text-center text-[0.8rem] text-[#bbb] dark:text-[#666] py-6">
         &copy; {new Date().getFullYear()} Lance Christian C. Crucis
       </footer>
     </div>
