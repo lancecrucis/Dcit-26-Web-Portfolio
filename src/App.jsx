@@ -9,9 +9,9 @@ const skills = [
 ]
 
 const projects = [
-  { name: 'lancelet.vercel.app', url: 'https://lancelet.vercel.app/', img: '/projects/lanceletwebsite.jpg' },
-  { name: 'unofficial-lord-of-the-mysteries.vercel.app', url: 'https://unofficial-lord-of-the-mysteries.vercel.app/', img: '/projects/lotm website.jpg' },
-  { name: 'xg-inventory-management-system-frontend.onrender.com', url: 'https://xg-inventory-management-system-frontend.onrender.com', img: '/projects/xg inventory.jpg' },
+  { name: 'lancelet Flashcards', url: 'https://lancelet.vercel.app/', img: '/projects/lanceletwebsite.png' },
+  { name: 'Unofficial Lord of the Mysteries', url: 'https://unofficial-lord-of-the-mysteries.vercel.app/', img: '/projects/lotm website.png' },
+  { name: 'Valorant Commputer Vision Skin Classifier', url: 'https://xg-inventory-management-system-frontend.onrender.com', img: '/projects/valorant.png' },
 ]
 
 const certifications = [
@@ -126,19 +126,32 @@ export default function App() {
         <h3 className="text-[1.15rem] font-semibold tracking-wide uppercase text-[#999] mb-6">
           Projects
         </h3>
-        <div className="grid grid-cols-3 gap-4 max-md:grid-cols-1">
+        <div className="flex flex-col gap-5">
           {projects.map((p) => (
             <a
               key={p.name}
               href={p.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex flex-col text-[#333] no-underline border border-[#eee] rounded-xl overflow-hidden hover:shadow-[0_4px_20px_rgba(0,0,0,0.06)] transition-shadow"
+              className="relative block w-full rounded-2xl overflow-hidden h-[280px] group"
             >
-              <div className="w-full aspect-[16/10] overflow-hidden bg-[#fafafa]">
-                <img src={p.img} alt={p.name} className="w-full h-full object-cover block" />
+              <img
+                src={p.img}
+                alt={p.name}
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+              <div className="absolute inset-0  via-black/20 to-transparent" />
+              <div className="relative z-10 flex flex-col items-start justify-start h-full pt-8 pl-8">
+                <h4 className="text-white text-2xl font-bold max-w-xs leading-tight">
+                  {p.name}
+                </h4>
+                <p className="text-white/70 text-sm mt-1.5">
+                  The project is Live!
+                </p>
+                <span className="mt-4 inline-block bg-white/20 backdrop-blur-sm text-white text-sm font-medium px-5 py-2 rounded-full border border-white/30 group-hover:bg-white/30 transition-colors">
+                  Visit Site &rarr;
+                </span>
               </div>
-              <span className="block px-3.5 py-3 text-[0.85rem] font-medium">{p.name}</span>
             </a>
           ))}
         </div>
