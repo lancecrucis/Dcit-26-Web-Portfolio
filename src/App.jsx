@@ -164,7 +164,7 @@ export default function App() {
       </div>
 
       {showQuizzes && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm" onClick={() => setShowQuizzes(false)}>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50" onClick={() => setShowQuizzes(false)}>
           <div className="bg-white dark:bg-[#1a1a1a] rounded-2xl shadow-2xl max-w-3xl w-full mx-4 max-h-[80vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
             <div className="flex items-center justify-between px-6 py-4 border-b border-[#eee] dark:border-[#333]">
               <h2 className="text-xl font-bold text-[#111] dark:text-white">Quizzes / Activities</h2>
