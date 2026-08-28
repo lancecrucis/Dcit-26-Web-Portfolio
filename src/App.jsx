@@ -125,11 +125,16 @@ function ProjectCard({ project }) {
 
 export default function App() {
   const [dark, setDark] = useState(false)
+  const [showQuizzes, setShowQuizzes] = useState(false)
 
   const toggleDark = () => {
     setDark(!dark)
     document.documentElement.classList.toggle('dark')
   }
+
+  const quizzes = [
+    { title: 'Quiz 1 , 17/20', img: '/quizzes/quiz1.jpg' }
+  ]
 
   return (
     <div className="max-w-[1100px] mx-auto px-6 max-md:px-4 py-12 max-md:py-8 min-h-screen">
@@ -142,13 +147,49 @@ export default function App() {
             3rd-Year BS Computer Science &middot; Cavite State University
           </p>
         </div>
-        <button
-          onClick={toggleDark}
-          className="px-4 py-2 rounded-full border border-[#ddd] dark:border-[#444] text-sm font-medium text-[#555] dark:text-[#aaa] hover:bg-[#f0f0f0] dark:hover:bg-[#222] transition-colors cursor-pointer"
-        >
-          {dark ? 'Light' : 'Dark'}
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => setShowQuizzes(true)}
+            className="px-4 py-2 rounded-full border border-[#ddd] dark:border-[#444] text-sm font-medium text-[#555] dark:text-[#aaa] hover:bg-[#f0f0f0] dark:hover:bg-[#222] transition-colors cursor-pointer"
+          >
+            Outputs
+          </button>
+          <button
+            onClick={toggleDark}
+            className="px-4 py-2 rounded-full border border-[#ddd] dark:border-[#444] text-sm font-medium text-[#555] dark:text-[#aaa] hover:bg-[#f0f0f0] dark:hover:bg-[#222] transition-colors cursor-pointer"
+          >
+            {dark ? 'Light' : 'Dark'}
+          </button>
+        </div>
       </div>
+
+      {showQuizzes && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm" onClick={() => setShowQuizzes(false)}>
+          <div className="bg-white dark:bg-[#1a1a1a] rounded-2xl shadow-2xl max-w-3xl w-full mx-4 max-h-[80vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center justify-between px-6 py-4 border-b border-[#eee] dark:border-[#333]">
+              <h2 className="text-xl font-bold text-[#111] dark:text-white">Quizzes / Activities</h2>
+              <button
+                onClick={() => setShowQuizzes(false)}
+                className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-[#f0f0f0] dark:hover:bg-[#333] text-[#555] dark:text-[#aaa] transition-colors cursor-pointer text-lg"
+              >
+                &times;
+              </button>
+            </div>
+            <div className="grid grid-cols-2 gap-4 p-6 max-md:grid-cols-1">
+              {quizzes.map((q) => (
+                <div key={q.title} className="border border-[#eee] dark:border-[#333] rounded-xl overflow-hidden">
+                  <div className="w-full bg-[#fafafa] dark:bg-[#222] flex items-center justify-center p-4">
+                    <img src={q.img} alt={q.title} className="w-full h-auto max-h-[200px] object-contain" />
+                  </div>
+                  <div className="px-4 py-3 border-t border-[#eee] dark:border-[#333]">
+                    <div className="font-medium text-sm text-[#111] dark:text-white">{q.title}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
 
       <section className="flex items-center gap-10 mb-14 max-md:flex-col max-md:gap-6 max-md:mb-10 max-md:text-center">
         <div className="shrink-0">
