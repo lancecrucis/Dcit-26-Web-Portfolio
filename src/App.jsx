@@ -125,7 +125,6 @@ function ProjectCard({ project }) {
 
 export default function App() {
   const [dark, setDark] = useState(false)
-  const [showQuizzes, setShowQuizzes] = useState(false)
 
   const toggleDark = () => {
     setDark(!dark)
@@ -133,7 +132,9 @@ export default function App() {
   }
 
   const quizzes = [
-    { title: 'Quiz 1 , 17/20', img: '/quizzes/quiz1.jpg' }
+    { title: 'Quiz 1 front, 17/20', img: '/quizzes/quiz1.jpg' },
+    { title: 'Quiz 1 back, 17/20', img: '/quizzes/quiz1 back.jpg' },
+
   ]
 
   return (
@@ -149,12 +150,6 @@ export default function App() {
         </div>
         <div className="flex items-center gap-2">
           <button
-            onClick={() => setShowQuizzes(true)}
-            className="px-4 py-2 rounded-full border border-[#ddd] dark:border-[#444] text-sm font-medium text-[#555] dark:text-[#aaa] hover:bg-[#f0f0f0] dark:hover:bg-[#222] transition-colors cursor-pointer"
-          >
-            Outputs
-          </button>
-          <button
             onClick={toggleDark}
             className="px-4 py-2 rounded-full border border-[#ddd] dark:border-[#444] text-sm font-medium text-[#555] dark:text-[#aaa] hover:bg-[#f0f0f0] dark:hover:bg-[#222] transition-colors cursor-pointer"
           >
@@ -162,34 +157,6 @@ export default function App() {
           </button>
         </div>
       </div>
-
-      {showQuizzes && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50" onClick={() => setShowQuizzes(false)}>
-          <div className="bg-white dark:bg-[#1a1a1a] rounded-2xl shadow-2xl max-w-3xl w-full mx-4 max-h-[80vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
-            <div className="flex items-center justify-between px-6 py-4 border-b border-[#eee] dark:border-[#333]">
-              <h2 className="text-xl font-bold text-[#111] dark:text-white">Quizzes / Activities</h2>
-              <button
-                onClick={() => setShowQuizzes(false)}
-                className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-[#f0f0f0] dark:hover:bg-[#333] text-[#555] dark:text-[#aaa] transition-colors cursor-pointer text-lg"
-              >
-                &times;
-              </button>
-            </div>
-            <div className="grid grid-cols-2 gap-4 p-6 max-md:grid-cols-1">
-              {quizzes.map((q) => (
-                <div key={q.title} className="border border-[#eee] dark:border-[#333] rounded-xl overflow-hidden">
-                  <div className="w-full bg-[#fafafa] dark:bg-[#222] flex items-center justify-center p-4">
-                    <img src={q.img} alt={q.title} className="w-full h-auto max-h-[200px] object-contain" />
-                  </div>
-                  <div className="px-4 py-3 border-t border-[#eee] dark:border-[#333]">
-                    <div className="font-medium text-sm text-[#111] dark:text-white">{q.title}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
 
       <section className="flex items-center gap-10 mb-14 max-md:flex-col max-md:gap-6 max-md:mb-10 max-md:text-center">
         <div className="shrink-0">
@@ -225,6 +192,31 @@ export default function App() {
                 {s.label}
               </div>
               <div className="text-base text-[#222] dark:text-[#ddd]">{s.value}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="mb-12">
+        <h3 className="text-[1.3rem] font-semibold tracking-wide uppercase text-[#999] dark:text-[#666] mb-6">
+          Activities &amp; Quizzes
+        </h3>
+        <div className="grid grid-cols-2 gap-5 max-md:grid-cols-1">
+          {quizzes.map((q) => (
+            <div
+              key={q.title}
+              className="flex flex-col border border-[#eee] dark:border-[#333] rounded-xl overflow-hidden hover:shadow-[0_4px_20px_rgba(0,0,0,0.06)] dark:hover:shadow-[0_4px_20px_rgba(0,0,0,0.3)] transition-shadow"
+            >
+              <div className="w-full bg-[#fafafa] dark:bg-[#1a1a1a] flex items-center justify-center p-5">
+                <img
+                  src={q.img}
+                  alt={q.title}
+                  className="w-full h-auto max-h-[300px] object-contain block"
+                />
+              </div>
+              <div className="px-5 py-4 border-t border-[#eee] dark:border-[#333]">
+                <div className="font-medium text-base text-[#111] dark:text-white">{q.title}</div>
+              </div>
             </div>
           ))}
         </div>
