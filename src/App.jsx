@@ -16,9 +16,9 @@ const projects = [
 
 const certifications = [
   { title: 'Microsoft Certified: Azure AI Fundamentals', org: 'Microsoft', date: 'Issued Jun 2026', img: '/certs/Credentials - lancechristianccrucis-2364 _ Microsoft Learn_page-0001.jpg' },
-  { title: 'Certificate of Completion: Claude 101', org: 'Anthropic', date: 'Issued Mar 2026', img: '/certs/claude101 cert.jpg' },
   { title: "CS50's Introduction to Computer Science", org: 'Harvard University', date: 'Issued Dec 2025', img: '/certs/CS50x cert.png' },
-  { title: 'AI Essentials: Theory and Practice', org: 'University of the Philippines Open University', date: 'Issued Jun 2025', img: '/certs/uplb ai essential cert.jpg' }
+  { title: 'AI Essentials: Theory and Practice', org: 'University of the Philippines Open University', date: 'Issued Jun 2025', img: '/certs/uplb ai essential cert.jpg' },
+  { title: 'WarFrames: Where Design Meets Data (41st CS Week, UPLB)', org: 'University of the Philippines Los Baños', date: 'Issued Mar 2025', img: '/certs/warframe uplb cert.jpg' },
 ]
 
 function TiltProfilePic() {
