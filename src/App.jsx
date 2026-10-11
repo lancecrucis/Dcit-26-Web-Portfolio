@@ -134,6 +134,9 @@ export default function App() {
   const quizzes = [
     { title: 'Quiz 1 front, 17/20', img: '/quizzes/quiz1.jpg' },
     { title: 'Quiz 1 back, 17/20', img: '/quizzes/quiz1 back.jpg' },
+    { title: 'Quiz 2, 17/20', img: '/quizzes/Quiz 2.png' },
+    { title: 'Quiz 3, 18/20', img: '/quizzes/Quiz 3.png' },
+    { title: 'Long quiz , 41/45', img: '/quizzes/Long Quiz.png' },
 
   ]
 
